@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lnl"
+    android:layout_width="103dp"
+    android:layout_height="183dp"
+
+    android:layout_margin="15dp"
+    android:background="@drawable/bordas_brancas"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imgSkinLoja"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="10dp"
+        android:gravity="bottom" />
+
+    <LinearLayout
+        android:layout_width="90dp"
+        android:layout_height="65dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bordas_brancas"
+        android:elevation="3dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameLoja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:elevation="4dp"
+            android:fontFamily="@font/font_family_fortinite"
+            android:text="Nome da Skin"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/vBucksLoja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:fontFamily="@font/font_family_fortinite"
+            android:text="0000"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lorem1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:fontFamily="@font/font_family_fortinite"
+            android:text="V-Bucks"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

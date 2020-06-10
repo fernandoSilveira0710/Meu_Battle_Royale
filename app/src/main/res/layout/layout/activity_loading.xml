@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frml"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="mbr.com.meubattleroyale.VIEW.ACTIVITY.Loading">
+
+    <FrameLayout
+        android:id="@+id/grdlt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            app:srcCompat="@drawable/logo_transp" />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txt_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/font_family_fortinite"
+        android:text="Entrando..."
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary" />
+
+</FrameLayout>

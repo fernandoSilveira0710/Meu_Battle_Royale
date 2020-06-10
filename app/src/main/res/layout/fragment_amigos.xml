@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context="mbr.com.meubattleroyale.VIEW.FRAGMENT.Amigos">
+
+    <EditText
+        android:id="@+id/edtBuscar_busca"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableLeft="@drawable/search_icon"
+        android:ems="10"
+        android:hint="Digite o nick ou id do amiguinho"
+        android:inputType="textPersonName"
+        android:padding="6dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/txtResBusca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado das buscas"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/prgbUser_Busca"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recBuscaUsuarios_Busca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layoutAnimation="@anim/layout_animation"
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/txtUsuarios_Busca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seus amigos"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recAmigos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layoutAnimation="@anim/layout_animation"
+        android:visibility="visible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <FrameLayout
+        android:id="@+id/frml"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+    </FrameLayout>
+
+
+</LinearLayout>

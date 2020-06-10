@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/bordas_1logo">
+
+    <LinearLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar_adpt_amigo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtNick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:elevation="5dp"
+                    android:text="..."
+                    android:textColor="@color/branco"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtHora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_margin="2dp"
+                    android:layout_marginRight="3dp"
+                    android:text="12:30"
+                    android:textColor="@color/colorPrimary" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txtUltMsg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                android:maxLines="2"
+                android:text="..."
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</com.balysv.materialripple.MaterialRippleLayout>

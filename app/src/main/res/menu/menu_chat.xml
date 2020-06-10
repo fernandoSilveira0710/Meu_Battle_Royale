@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="mbr.com.meubattleroyale.VIEW.ACTIVITY.Chat">
+    <item
+        android:id="@+id/mn_back"
+        android:icon="@drawable/ic_close"
+        android:title=""
+        app:showAsAction="ifRoom"/>
+
+</menu>

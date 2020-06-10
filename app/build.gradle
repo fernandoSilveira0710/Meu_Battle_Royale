@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "mbr.com.meubattleroyale"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    //oi
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation('com.squareup.picasso:picasso:2.71828') {
+        exclude group: 'com.android.support'
+        exclude module: ['exifinterface', 'support-annotations']
+    }
+    //google play faturamento
+    implementation 'com.android.billingclient:billing:2.1.0'
+    // banner admob
+    implementation 'com.google.android.gms:play-services-ads:19.1.0'
+
+    // cookie para aparecer alertas
+    implementation 'org.aviran.cookiebar2:cookiebar2:1.1.3'
+    implementation 'com.google.android.material:material:1.1.0'
+    //dialog fragment
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    // animação de textos
+    implementation 'com.tomer:fadingtextview:2.5'
+
+    // chat
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
+
+    //efeitos de animação
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+    //Método de pagamento
+    implementation 'com.android.billingclient:billing:2.0.3'
+
+
+    //tela de boas vindas
+    implementation 'com.stephentuso:welcome:1.4.1'
+
+    //rounded view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    //circularImageView Library for showing images in circles
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //Picasso library for showing pictures
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //ripple layout
+    implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.github.jrvansuita:PickImage:2.2.4'
+    implementation 'com.miguelcatalan:materialsearchview:1.0.0'
+
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+}

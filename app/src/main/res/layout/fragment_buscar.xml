@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="mbr.com.meubattleroyale.VIEW.FRAGMENT.Buscar">
+
+    <FrameLayout
+        android:id="@+id/frml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lnlTopo_buscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.tomer.fadingtextview.FadingTextView
+                android:id="@+id/fdngtxtTopo_buscar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:texts="@array/textInfo"
+                app:timeout="2000" />
+
+            <LinearLayout
+                android:id="@+id/lnlDefinicoes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_margin="2dp"
+                android:background="@drawable/bordas_fundo"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/swtchSeuHeadSet_buscar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:showText="false"
+                    android:text=" O usuário precisa ter headSet?"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:thumbTextPadding="2dp" />
+
+                <Switch
+                    android:id="@+id/swtchMeuHeadSet_buscar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:showText="false"
+                    android:text=" Voce possui HeadSet?"
+                    android:textColor="@color/colorPrimary"
+                    android:thumbTextPadding="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Switch
+                        android:id="@+id/swtchDuo_buscar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:showText="false"
+                        android:text=" Duplas?"
+                        android:textColor="@color/colorPrimary"
+                        android:textOff="Não"
+                        android:textOn="Sim"
+                        android:thumbTextPadding="2dp" />
+
+                    <Switch
+                        android:id="@+id/swtchSquad_buscar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:showText="false"
+                        android:text=" Esquadrões?"
+                        android:textColor="@color/colorPrimary"
+                        android:textOff="Não"
+                        android:textOn="Sim"
+                        android:thumbTextPadding="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnlMeio_buscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lnl"
+                    android:layout_width="150dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtContagem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:layout_marginTop="10dp"
+                        android:text="Clique para buscar"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary" />
+
+                    <FrameLayout
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:elevation="10dp">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/animation_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:visibility="gone"
+                            app:lottie_autoPlay="false"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/loading_efeito" />
+
+                        <ImageButton
+                            android:id="@+id/imgbSearch_BUSCAR"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:elevation="10dp"
+                            android:src="@drawable/ic_clique_aqui" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnlFundo_buscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bordas_fundo"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtQTD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/font_family_fortinite"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recBusca"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

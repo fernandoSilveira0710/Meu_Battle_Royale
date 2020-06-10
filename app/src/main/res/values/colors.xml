@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FDFEFE</color>
+    <color name="logo1">#800000</color>
+    <color name="logo2">#2F4F4F</color>
+    <color name="logo3">#191970</color>
+    <color name="branco">#FDFEFE</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FDFEFE</color>
+    <color name="verde">#04B404</color>
+    <color name="dourado">#FFD700</color>
+    <color name="mitico">#DAA520</color>
+    <color name="epica">#8643BA</color>
+    <color name="raro">#2C71B6</color>
+    <color name="incomum">#41852D</color>
+    <color name="verde_agua">#00FA9A</color>
+    <color name="comum">#bbb4b7</color>
+    <color name="material_red">#ff4444</color>
+
+
+
+</resources>

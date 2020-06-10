@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="text">
+        <item>Buscando jogadores online...</item>
+        <item>Tenha paciencia a busca pode demorar...</item>
+        <item>Buscando jogadores online...</item>
+        <item>Estamos encontrando jogadores com base nos seus filtros</item>
+        <item>Buscando jogadores online...</item>
+    </string-array>
+    <string-array name="textInfo">
+        <item>Use esta aba para encontrar novos usuarios</item>
+        <item>filtre jogadores,converse,adicione e se divirta</item>
+        <item>Encontre jogadores do seu modo</item>
+        <item>Selecione alguns dos filtros e clique no icone buscar que está abaixo</item>
+        <item>Lembre-se,os filtros retardam a busca</item>
+        <item>Quanto mais filtros,mais tempo leva para encontrar :)</item>
+    </string-array>
+    <string-array name="textInfoNick">
+        <item>Digite o nick que voce utiliza em seu jogo</item>
+        <item>Lembre-se que voce não poderá mais troca-lo</item>
+        <item>o nick irá servir para que amigos possam te encontrar</item>
+    </string-array>
+    <string-array name="textInfoMoney">
+        <item>Quer comprar avatares e não tem dinheiro?</item>
+        <item>Pois aqui está a solução</item>
+        <item>Clique no icone de dinheiro e veja videos</item>
+        <item>Ganhe saldo para desbloquear avatares</item>
+    </string-array>
+
+</resources>

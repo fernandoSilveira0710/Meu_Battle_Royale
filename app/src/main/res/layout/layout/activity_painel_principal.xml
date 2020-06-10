@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lnl_painel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context="mbr.com.meubattleroyale.VIEW.ACTIVITY.PainelPrincipal">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_principal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/colorPrimary" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_painel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
