@@ -2,6 +2,7 @@ package mbr.com.meubattleroyale.VIEW.FRAGMENT;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.tomer.fadingtextview.FadingTextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -61,6 +63,7 @@ public class Settings extends Fragment implements RewardedVideoAdListener
     private String TAG = "SETTINGS_";
     private FadingTextView txtAjuda;
     private RewardedVideoAd mAd;
+    private TextView txtPolitica;
 
     /******* SOBRE O ITEM TIPO QUE É RECUPERADO DO BANCO *********
      TIPO[0] = SALDO  --> 0.55 CENTS
@@ -117,18 +120,47 @@ public class Settings extends Fragment implements RewardedVideoAdListener
         txtAmigos.setText(" Possui "+(amigos.size() - 1) +" amigos");
         txtNick.setText(" "+usuarios.get(0).getNickname());
         txtEmail.setText(" "+mAuth.getCurrentUser().getEmail());
-        txtVersao.setText("Versão: "+tipo[1]);
         txtSaldo.setText("Saldo: R$"+tipo[0]);
         if (!tipo[1].equals("Free"))
         {
-            btnPro.setVisibility(View.GONE);
-            frml.setVisibility(View.GONE);
-            txtAjuda.setVisibility(View.GONE);
+            try
+            {
+                String diasRestantes = DatabaseHelper.diasRestantes(DatabaseHelper.transformarData(),tipo[2]);
+                if (diasRestantes.equals("0")) // caso dias restantes esteja em 0 iremos revogar versão para free
+                {
+                    txtVersao.setText("Versão: Free");
+                    txtVersao.setVisibility(View.VISIBLE);
+                    btnPro.setVisibility(View.VISIBLE);
+                    frml.setVisibility(View.VISIBLE);
+                    txtAjuda.setVisibility(View.VISIBLE);
+                    final String tipoFinal =  tipo[0]+"@@"+
+                            "Free"+"@@"+
+                            "0"+"@@"+
+                            tipo[3];
+                    db.atualizarAmigo(new Amigo(amigos.get(0).getIcone(),amigos.get(0).getNick(),tipoFinal,amigos.get(0).getId(),amigos.get(0).getAmigos()));
+                    ref.child("usuarios").child(usuarios.get(0).getId()).child("tipo").setValue(tipoFinal);
+                    amigos.clear();
+                    amigos.addAll(db.recuperaAmigos());
+
+                }
+                else
+                {
+                    txtVersao.setText("Versão: "+tipo[1]+" "+diasRestantes + " dias para expirar");
+                    txtVersao.setVisibility(View.VISIBLE);
+                    btnPro.setVisibility(View.GONE);
+                    frml.setVisibility(View.GONE);
+                    txtAjuda.setVisibility(View.GONE);
+                }
+            } catch (ParseException e)
+            {
+                e.printStackTrace();
+            }
         }
         return view;
     }
     private void fazerCast(View view)
     {
+        txtPolitica = view.findViewById(R.id.txtPolitica);
         txtAjuda = view.findViewById(R.id.txtAjuda);
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -154,20 +186,53 @@ public class Settings extends Fragment implements RewardedVideoAdListener
         });
 
 
-        btnPro.setOnClickListener(new View.OnClickListener() {
+        btnPro.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                final int pontos = Integer.parseInt(tipo[0]);
                 new SweetAlertDialog(getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                        .setTitleText("Ganhou 10 pontos")
-                        .setCustomImage(R.drawable.ic_fireworks)
-                        .setContentText("Parabéns,acaba de ganhar 10 pontos que serão adicionados a sua conta :)")
-                        .setConfirmText("Valeu!")
+                        .setTitleText("Pagamento")
+                        .setCustomImage(R.drawable.ic_pig)
+                        .setContentText("Saldo: "+pontos+" pontos disponiveis\n Valor do pacote: ("+2500+" pontos)")
+                        .setConfirmText("Saldo")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
                         {
                             @Override
                             public void onClick(final SweetAlertDialog sDialog)
                             {
-                                sDialog.dismissWithAnimation();
+                                if (pontos < 2500)
+                                {
+                                    Snackbar.make(getView(),"Seu saldo é inferior ao valor do pacote", Snackbar.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    String  versao = "Pro";
+                                    final int pontosFinais = pontos - 2500;
+                                    Log.d(TAG, "SALDO FINAL: "+pontosFinais);
+                                    String[] pacotes = tipo[3].split("&");
+                                    String pcte =  pacotes[0]+"&"+pacotes[1]+"&"+pacotes[2];
+                                    final String tipoFinal =  pontosFinais+"@@"+
+                                            versao+"@@"+
+                                            DatabaseHelper.dataFinal(DatabaseHelper.transformarData())+"@@"+
+                                            pcte;
+                                    ref.child("usuarios").child(usuarios.get(0).getId()).child("tipo").setValue(tipoFinal).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                                Snackbar.make(getView(),"Versão Pro comprada com sucesso", Snackbar.LENGTH_LONG).show();
+                                                btnPro.setVisibility(View.GONE);
+                                                Log.d(TAG, "onComplete: DB.ATUALIZADO");
+                                                db.atualizarAmigo(new Amigo(amigos.get(0).getIcone(),amigos.get(0).getNick(),tipoFinal,amigos.get(0).getId(),amigos.get(0).getAmigos()));
+                                                sDialog.dismissWithAnimation();
+                                                txtVersao.setText("Versão Pro");
+                                                txtSaldo.setText("Saldo: "+pontosFinais+" pontos");
+                                                frml.setVisibility(View.GONE);
+                                                amigos.clear();
+                                                amigos.addAll(db.recuperaAmigos());
+                                        }
+                                    });
+                                }
                             }
                         })
                         .show();
@@ -216,6 +281,20 @@ public class Settings extends Fragment implements RewardedVideoAdListener
                 }
             }
         });
+        txtTermos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        txtPolitica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/politicadeprivacidademeubattle/in%C3%ADcio"));
+                startActivity(browser);
+            }
+        });
+
     }
 
     @Override

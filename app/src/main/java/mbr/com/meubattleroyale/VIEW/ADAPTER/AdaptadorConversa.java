@@ -82,6 +82,13 @@ public class AdaptadorConversa extends RecyclerView.Adapter<AdaptadorConversa.Vi
                 customConversa.onItemClick(viewHolder.itemView, viewHolder.getAdapterPosition(),conversa);
             }
         });
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                customConversa.onLongItemClick(viewHolder.itemView, viewHolder.getAdapterPosition(),conversa);
+                return true;
+            }
+        });
         iniciarAnimacao(viewHolder.itemView,position);
     }
 

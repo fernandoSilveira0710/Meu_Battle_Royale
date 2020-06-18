@@ -1,6 +1,5 @@
 package mbr.com.meubattleroyale.MODEL.GERAL;
 
-import mbr.com.meubattleroyale.HELPER.RandomColor;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
@@ -66,11 +65,5 @@ public class Mensagem
     this.data = data;
   }
 
-  private static int corRandom()
-  {
-    RandomColor randomColor = new RandomColor();
-    int cor = randomColor.randomColor();
-    return cor;
-  }
 
 }

@@ -238,7 +238,7 @@
                     android:drawableRight="@drawable/ic_premium"
                     android:fontFamily="@font/font_family_robotto"
                     android:padding="5dp"
-                    android:text="Assine o pró por apenas R$ 0,99 ao mês e obtenha acesso ilimitado no aplicativo!"
+                    android:text="Assine o pró por apenas 2500 pontos/mês e obtenha acesso ilimitado no aplicativo!"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/branco"
@@ -251,6 +251,16 @@
                     android:layout_margin="8dp"
                     android:fontFamily="@font/font_family_robotto"
                     android:text="Termos de uso"
+                    android:textColor="@color/branco"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtPolitica"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/robotto"
+                    android:text="Politica de dados"
                     android:textColor="@color/branco"
                     android:textStyle="bold" />
 
@@ -278,7 +288,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Versão Free"
-                        android:textColor="@color/branco">
+                        android:textColor="@color/branco"
+                        android:visibility="gone">
 
                     </TextView>
 

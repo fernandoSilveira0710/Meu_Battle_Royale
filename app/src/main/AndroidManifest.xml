@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mbr.com.meubattleroyale">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -20,7 +21,7 @@
         <!-- APP ADMOB ID -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3914061267069780~5426862243"/>
+            android:value="ca-app-pub-3914061267069780~5426862243" />
 
         <receiver
             android:name=".SERVICE.NotificacaoReceiver"
@@ -32,7 +33,6 @@
             android:exported="false" />
 
         <activity android:name=".VIEW.ACTIVITY.ConteudoNoticia" />
-        <activity android:name=".VIEW.ADAPTER.AdaptadorConversa" />
         <activity android:name=".VIEW.ACTIVITY.Chat" />
         <activity android:name=".VIEW.ACTIVITY.SelecionarAvatar" />
         <activity android:name=".VIEW.ACTIVITY.PainelPrincipal" />
@@ -48,4 +48,5 @@
             android:name=".VIEW.ACTIVITY.TelaBoasVindas"
             android:theme="@style/WelcomeScreenTheme" />
     </application>
+
 </manifest>

@@ -36,9 +36,6 @@ public class Loading extends AppCompatActivity
     private FirebaseAuth mAuth = ConfiguracaoFirebase.getFirebaseAutenticacao();
     private Animation animation;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

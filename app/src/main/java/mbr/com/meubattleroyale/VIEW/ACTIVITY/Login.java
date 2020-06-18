@@ -72,7 +72,6 @@ public class Login extends AppCompatActivity
                     Manifest.permission.INTERNET,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.ACCESS_NETWORK_STATE,
-                    Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.ACCESS_WIFI_STATE,
                     Manifest.permission.RECEIVE_BOOT_COMPLETED,
                     Manifest.permission.WAKE_LOCK
@@ -110,9 +109,9 @@ public class Login extends AppCompatActivity
         pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.colorPrimary));
         pDialog.setTitleText("Loading");
         pDialog.setCancelable(false);
-        
+        //chamando tela boas vindas
         welcomeScreen = new WelcomeHelper(this, TelaBoasVindas.class);
-        welcomeScreen.show(savedInstanceState);
+       welcomeScreen.show(savedInstanceState);
         PermissionsUtils.ActivePermissions(this,permissoes,1);
         fazerCast();
         btnCadNick.setOnClickListener(new View.OnClickListener()
@@ -396,7 +395,7 @@ public class Login extends AppCompatActivity
     {
         String nickname = usuario.getNickname().replace(" ","");
 
-        ref.child("nick").child(nickname).setValue(usuario.getId());
+       // ref.child("nick").child(nickname).setValue(usuario.getId());
 
         Amigo amigo = new Amigo(0,nickname,"0@@Free@@0@@0&&0&&0", usuario.getId(), null);
         // salvar no banco local como amigo para recuperar futuramente; usuario lista0

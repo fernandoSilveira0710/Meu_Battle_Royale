@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "853456965013",
-    "firebase_url": "https://meu-battle-royale-6aa74.firebaseio.com",
-    "project_id": "meu-battle-royale-6aa74",
-    "storage_bucket": "meu-battle-royale-6aa74.appspot.com"
+    "project_number": "467985425969",
+    "firebase_url": "https://meu-battle-royale-f0be6.firebaseio.com",
+    "project_id": "meu-battle-royale-f0be6",
+    "storage_bucket": "meu-battle-royale-f0be6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:853456965013:android:5ce90503ebc623a6c63a9c",
+        "mobilesdk_app_id": "1:467985425969:android:003a86d010c5fc223f9710",
         "android_client_info": {
           "package_name": "mbr.com.meubattleroyale"
         }
       },
       "oauth_client": [
         {
-          "client_id": "853456965013-98hr5t79vqdocotg0g3ievsb8a9ivmi8.apps.googleusercontent.com",
+          "client_id": "467985425969-5rvrejd48abocnl7qea234etgbie6rhv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "mbr.com.meubattleroyale",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "853456965013-punaoqru1ot1heot0nbce0u1jda347it.apps.googleusercontent.com",
+          "client_id": "467985425969-1vgruip4t7kilauju36okuu89430nhks.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBnXcxMIGNrMst_gr4jBvPR03jZoNcJHh8"
+          "current_key": "AIzaSyAUffPBgqr19AhEyiG6mYMQJIZm0lTnsJw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "853456965013-punaoqru1ot1heot0nbce0u1jda347it.apps.googleusercontent.com",
+              "client_id": "467985425969-1vgruip4t7kilauju36okuu89430nhks.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

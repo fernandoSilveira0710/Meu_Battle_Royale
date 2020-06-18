@@ -44,6 +44,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class Amigos extends Fragment
     private EditText srchBuscar;
     private TextView  txtUsuario,txtBusca;
     private DatabaseReference ref = ConfiguracaoFirebase.getFirebase();
+    private ValueEventListener eventBuscaListener;
     private RecyclerView recBusca,recAmigos;
     private ProgressBar prgUser;
 
@@ -273,12 +275,6 @@ public class Amigos extends Fragment
                     iniciarRecBusca();
                     prgUser.setVisibility(View.GONE);
                     final String query = srchBuscar.getText().toString();
-                    if (meuUsuario.get(0).getNickname().equals(query))
-                    {
-                        Toast.makeText(getContext(),"Voce digitou seu nick???\n Digite um nick que não seja o seu !!!!",Toast.LENGTH_LONG).show();
-                    }
-                    else
-                        {
                             if (query.length() != 1)
                             {
                                 if (query.isEmpty())
@@ -287,7 +283,10 @@ public class Amigos extends Fragment
                                 }
                                 else
                                 {
-                                    ref.child("nick").addListenerForSingleValueEvent(new ValueEventListener()
+                                    //ref.child("nick").addListenerForSingleValueEvent(new ValueEventListener()
+                                    Query nicksQuery = ref.child("usuarios").orderByChild("nick").equalTo(query);
+
+                                    eventBuscaListener = new ValueEventListener()
                                     {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -296,16 +295,22 @@ public class Amigos extends Fragment
                                             for (DataSnapshot dados : dataSnapshot.getChildren())
                                             {
                                                 Log.d(TAG, "Resultado: " + query);
-                                                String nicks = dados.getKey();
-                                                if (nicks.equals(query))
+                                                Log.d(TAG, "onDataChange: "+dados.getKey());
+                                                Amigo amigo = dados.getValue(Amigo.class);
+                                                Log.d(TAG, "onDataChange Dados amigo: "+amigo.getNick());
+                                                //String nicks = dados.getKey();
+                                                if (amigo.getNick().equals(query))
                                                 {
-                                                    resultado = true;
-                                                    prgUser.setVisibility(View.VISIBLE);
-                                                    srchBuscar.clearFocus();
-                                                    txtBusca.setVisibility(View.VISIBLE);
-                                                    Log.d(TAG, "Contém: " + dados.getValue().toString());
-                                                    prgUser.setVisibility(View.VISIBLE);
-                                                    popularLista(dados.getValue().toString());
+                                                    if (!amigo.getId().equals(listAmigos.get(0).getId()))
+                                                    {
+                                                        resultado = true;
+                                                        prgUser.setVisibility(View.VISIBLE);
+                                                        srchBuscar.clearFocus();
+                                                        txtBusca.setVisibility(View.VISIBLE);
+                                                        Log.d(TAG, "Contém: " + dados.getValue().toString());
+                                                        prgUser.setVisibility(View.VISIBLE);
+                                                        popularLista(amigo);
+                                                    }
                                                 }
                                             }
                                             if (resultado == false)
@@ -321,41 +326,25 @@ public class Amigos extends Fragment
                                         {
 
                                         }
-                                    });
+                                    };
+                                    nicksQuery.addListenerForSingleValueEvent(eventBuscaListener);
                                 }
                             }
                         }
-
-                }
                 return false;
             }
         });
 
     }
-    private void popularLista(final String key)
+    private void popularLista(Amigo amigo)
     {
-                ref.child("usuarios").child(key).addListenerForSingleValueEvent(new ValueEventListener()
-                {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                    {
-                            Amigo usuario = dataSnapshot.getValue(Amigo.class);
-                                    Log.d(TAG, usuario.getNick());
-                                    prgUser.setVisibility(View.GONE);
-                                    txtUsuario.setVisibility(View.VISIBLE);
-                                    txtUsuario.setText("usuarios");
-                                    listaBusca.add(usuario);
-                                    adapterBusca.notifyDataSetChanged();
-                                    recAmigos.setVisibility(View.VISIBLE);
-                                    txtBusca.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError)
-                    {
-
-                    }
-                });
+        prgUser.setVisibility(View.GONE);
+        txtUsuario.setVisibility(View.VISIBLE);
+        txtUsuario.setText("usuarios");
+        listaBusca.add(amigo);
+        adapterBusca.notifyDataSetChanged();
+        recAmigos.setVisibility(View.VISIBLE);
+        txtBusca.setVisibility(View.VISIBLE);
     }
 
     private void limparRecycler(int t)

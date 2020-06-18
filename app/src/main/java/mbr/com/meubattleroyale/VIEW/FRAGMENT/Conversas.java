@@ -272,6 +272,11 @@ public class Conversas extends Fragment
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
+
+            @Override
+            public void onLongItemClick(View itemView, int position, Mensagem conversa) {
+
+            }
         });
         recChat.setAdapter(adapter);
 

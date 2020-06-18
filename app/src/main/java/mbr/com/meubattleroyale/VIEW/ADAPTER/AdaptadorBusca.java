@@ -57,7 +57,6 @@ public class AdaptadorBusca extends RecyclerView.Adapter<AdaptadorBusca.ViewHold
 
         // Get the data model based on position
         final Amigo usuario = listUsuarios.get(position);
-        viewHolder.nick.setTypeface(Typeface.createFromAsset(getContext().getAssets(), getContext().getString(R.string.fortnite_font_resource)));
         if (usuario.getId().equals(seuId))
         {
             viewHolder.nick.setText("Voce");

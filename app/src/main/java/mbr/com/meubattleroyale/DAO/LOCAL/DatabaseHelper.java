@@ -14,8 +14,10 @@ import mbr.com.meubattleroyale.MODEL.GERAL.Noticia;
 import mbr.com.meubattleroyale.MODEL.GERAL.Notificacao;
 import mbr.com.meubattleroyale.MODEL.GERAL.Usuario;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -859,5 +861,43 @@ public class DatabaseHelper extends SQLiteOpenHelper
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+    public static String transformarData()
+    {
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        String dtTrans = sdf2.format(date);
+        return dtTrans;
+    }
+
+    public static String diasRestantes(String dataIni,String dataFin) throws ParseException
+    {
+        SimpleDateFormat datas = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateI;
+        Date dateF;
+        dateI = datas.parse(dataIni);
+        dateF = datas.parse(dataFin);
+        long diferenca = Math.abs(dateI.getTime() - dateF.getTime());
+        long diferencaDatas = diferenca / (24 * 60 * 60 * 1000);
+        String diferencadias = Long.toString(diferencaDatas);
+        return diferencadias;
+    }
+    public static String dataFinal(String dtInicial)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(dtInicial));
+        } catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        c.add(Calendar.DATE, 30);  // Numeros de dias adicionados
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        String output = sdf1.format(c.getTime());
+
+        return output;
     }
 }

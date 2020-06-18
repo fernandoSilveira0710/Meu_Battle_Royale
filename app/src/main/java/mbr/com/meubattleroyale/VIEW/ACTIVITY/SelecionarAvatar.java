@@ -21,8 +21,14 @@ import mbr.com.meubattleroyale.DAO.REMOTO.ConfiguracaoFirebase;
 import mbr.com.meubattleroyale.MODEL.GERAL.Amigo;
 import mbr.com.meubattleroyale.MODEL.GERAL.Avatar;
 import mbr.com.meubattleroyale.R;
+
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -30,7 +36,10 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpdatedListener {
+import static android.widget.Toast.LENGTH_LONG;
+
+public class SelecionarAvatar extends AppCompatActivity
+{
     private Button btnLendario,btnEpico,btnMitico;
     private ArrayList<ImageButton> avatares = new ArrayList<>();
     private ImageButton imgAV1T,imgAV2T,imgAV3T,imgAV4T,imgAV5T,imgAV6T,imgAV7T,imgAV8T;
@@ -47,7 +56,6 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
     private ArrayList<Amigo> meuUser = new ArrayList<>();
     private String[] tipo;
     private Button btnPro;
-    private BillingClient billingClient;
 
 
     @Override
@@ -65,6 +73,8 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
             tipo = bundle.getString("tipo").split("@@");
             Log.d(TAG,"id: "+id+"\n e idUser: "+idUser);
         }
+
+
         fazerCast();
         /******* SOBRE O ITEM TIPO QUE É RECUPERADO DO BANCO *********
          TIPO[0] = SALDO  --> 0.55 CENTS
@@ -79,16 +89,21 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
         if (pacotes[0].equals("1"))
         {
             btnEpico.setVisibility(View.GONE);
-
         }
         if (pacotes[1].equals("1"))
         {
             btnLendario.setVisibility(View.GONE);
-
         }
         if (pacotes[2].equals("1"))
         {
             btnMitico.setVisibility(View.GONE);
+        }
+        if (!tipo[1].equals("Free"))
+        {
+            btnPro.setVisibility(View.GONE);
+            btnMitico.setVisibility(View.GONE);
+            btnLendario.setVisibility(View.GONE);
+            btnEpico.setVisibility(View.GONE);
         }
     }
 
@@ -185,7 +200,7 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
         {
             @Override
             public void onClick(View v) {
-               processarPagamentoGP(0.99);
+               configurarPagamento(3);
             }
         });
 
@@ -331,9 +346,6 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
 
     private void configurarPagamento(int n)
     {
-        String produtoID = "";
-        String descricao = "";
-        String preco = "";
         int custoPontos = 0;
         String[] pacotes = tipo[3].split("&");
         String pcte = "";
@@ -341,46 +353,42 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
         switch (n)
         {
             case 0:
-                produtoID = "001";
                 pcte = pacotes[0]+"&"+pacotes[1]+"&"+"1";
-                descricao = "Pacote Mitico";
-                preco = "4,00";
                 custoPontos = 4000;
                 button = btnMitico;
-                enviarNotificacao(pcte,button,preco,custoPontos);
+                enviarNotificacao(pcte,button,custoPontos,1);
                 break;
             case 1:
-                produtoID = "002";
-                descricao = "Pacote Epico";
-                preco = "2,00";
                 custoPontos = 2000;
                 pcte = "1"+"&"+pacotes[1]+"&"+pacotes[2];
                 button = btnEpico;
-                enviarNotificacao(pcte,button,preco,custoPontos);
+                enviarNotificacao(pcte,button,custoPontos,1);
                 break;
             case 2:
-                produtoID = "003";
-                descricao = "Pacote Lendario";
-                preco = "3,00";
                 custoPontos = 3000;
                 pcte = pacotes[0]+"&"+"1"+"&"+pacotes[2];
                 button = btnLendario;
-                enviarNotificacao(pcte,button,preco,custoPontos);
+                enviarNotificacao(pcte,button,custoPontos,1);
+                break;
+            case 3:
+                custoPontos = 2500;
+                pcte = pacotes[0]+"&"+pacotes[1]+"&"+pacotes[2];
+                button = btnPro;
+                enviarNotificacao(pcte,button,custoPontos,0);
                 break;
         }
 
     }
-    private  void enviarNotificacao(final String pcte, Button button, final String preco, final int custoPontos)
+    private  void enviarNotificacao(final String pcte, Button button, final int custoPontos, final int tipoNotificacao)
     {
             final int pontos = Integer.parseInt(tipo[0]);
             final Button finalButton = button;
             Log.d(TAG, "configurarPagamento: pct "+pcte+"\n saldo pontos: "+ pontos);
             new SweetAlertDialog(SelecionarAvatar.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                    .setTitleText("Como deseja Pagar?")
+                    .setTitleText("Pagamento")
                     .setCustomImage(R.drawable.ic_pig)
-                    .setContentText("Saldo: "+pontos+" pontos disponiveis\n Valor do pacote: ("+custoPontos+" pontos) (R$"+preco+" )")
+                    .setContentText("Saldo: "+pontos+" pontos disponiveis\n Valor do pacote: ("+custoPontos+" pontos)")
                     .setConfirmText("Saldo")
-                    .setNeutralText("Google Play")
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
                     {
                         @Override
@@ -388,34 +396,42 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
                         {
                             if (pontos < custoPontos)
                             {
-                                Toast.makeText(getApplicationContext(),"Seu saldo é inferior ao valor do pacote",Toast.LENGTH_LONG).show();
+                                Snackbar.make(getCurrentFocus(),"Seu saldo é inferior ao valor do pacote", Snackbar.LENGTH_LONG).show();
                             }
                             else
                             {
-
+                                String versao = tipo[1];
+                                String dataPro = tipo[2];
+                                if (tipoNotificacao == 0)
+                                {
+                                    versao = "Pro";
+                                    dataPro = DatabaseHelper.dataFinal(DatabaseHelper.transformarData());
+                                }
                                 int pontosFinais = pontos - custoPontos;
                                 Log.d(TAG, "SALDO FINAL: "+pontosFinais);
                                 final String tipoFinal =  pontosFinais+"@@"+
-                                        tipo[1]+"@@"+
-                                        tipo[2]+"@@"+
+                                        versao+"@@"+
+                                        dataPro+"@@"+
                                         pcte;
                                 ref.child("usuarios").child(meuUser.get(0).getId()).child("tipo").setValue(tipoFinal).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(getApplicationContext(),"Pacote comprado com sucesso",Toast.LENGTH_LONG).show();
+                                        if (tipoNotificacao == 0)
+                                        {
+                                            Toast.makeText(SelecionarAvatar.this,"Versão Pro comprada com sucesso",LENGTH_LONG).show();
+                                            finalButton.setVisibility(View.GONE);
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(SelecionarAvatar.this,"Pacote comprado com sucesso", LENGTH_LONG).show();
+                                            finalButton.setVisibility(View.GONE);
+                                        }
                                         Log.d(TAG, "onComplete: DB.ATUALIZADO");
                                         db.atualizarAmigo(new Amigo(meuUser.get(0).getIcone(),meuUser.get(0).getNick(),tipoFinal,meuUser.get(0).getId(),meuUser.get(0).getAmigos()));
-                                        finalButton.setVisibility(View.GONE);
                                         sDialog.dismissWithAnimation();
                                     }
                                 });
                             }
-                        }
-                    })
-                    .setNeutralClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            processarPagamentoGP(Double.parseDouble(preco));
                         }
                     })
                     .show();
@@ -425,35 +441,5 @@ public class SelecionarAvatar extends AppCompatActivity implements PurchasesUpda
     {
         meuUser.clear();
         meuUser.addAll(db.recuperaAmigos());
-    }
-
-    //processa pagamento com google play
-    private void processarPagamentoGP(double valor)
-    {
-        billingClient = BillingClient.newBuilder(getApplicationContext()).setListener(this).build();
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(BillingResult billingResult) {
-                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK)
-                {
-
-                }
-            }
-
-            @Override
-            public void onBillingServiceDisconnected() {
-
-            }
-        });
-    }
-
-    @Override
-    public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> list) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 }
