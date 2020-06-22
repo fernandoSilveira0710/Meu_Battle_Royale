@@ -46,6 +46,7 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
     private Amigo meuUsuario;
     private long DURATION = 500;
     private boolean on_atach = true;
+    private String TAG = "ADPTBUSCA";
 
     public AdaptadorAmigos(Context context, ArrayList<Amigo> usuarios,String seuId, int tipo , CustomClick customBuscaClickList, CustomMsgeNtfc customMsgeNtfc)
     {
@@ -74,7 +75,7 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
         if (usuario.getId().equals(seuId))
         {
             viewHolder.nick.setText("Voce");
-            Log.d("ADPTBUSCA","Voce passou por aqui");
+            Log.d(TAG,"Voce passou por aqui");
             viewHolder.btnNotificacao.setVisibility(View.INVISIBLE);
             viewHolder.btnMensagem.setVisibility(View.INVISIBLE);
             viewHolder.btnSeguir.setVisibility(View.INVISIBLE);
@@ -89,7 +90,7 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
                 @Override
                 public void onClick(View v)
                 {
-                    Log.d("ADPTBUSCA","Enviando pelo onBindViewHolder");
+                    Log.d(TAG,"Enviando pelo onBindViewHolder");
                     customBuscaClickList.onItemClick(viewHolder.itemView, viewHolder.getAdapterPosition(),viewHolder.btnSeguir,meuUsuario,usuario);
                 }
             });
@@ -151,6 +152,7 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 meuUsuario = dataSnapshot.getValue(Amigo.class);
+                Log.d(TAG, "onDataChange: ICONE"+usuario.getIcone());
                 viewHolder.imageView.setImageResource(Avatar.identificarAvatar(usuario.getIcone()));
                 //viewHolder.imageView.setImageResource(R.drawable.ic_add_avatar);
                 viewHolder.imageView.setVisibility(View.VISIBLE);
@@ -158,10 +160,10 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
                 {
                     if (meuUsuario.getAmigos().contains(usuario.getId()))
                     {
-                        Log.d("ADPTBUSCA","meuUsuario:" +meuUsuario.getAmigos().size());
-                        Log.d("ADPTBUSCA","IF meuUsuario.getAmigos().contains(usuario.getNick())");
+                        Log.d(TAG,"meuUsuario:" +meuUsuario.getAmigos().size());
+                        Log.d(TAG,"IF meuUsuario.getAmigos().contains(usuario.getNick())");
                         Drawable imgClicked  = mContext.getResources().getDrawable(R.drawable.ic_amigos_check);
-                        Log.d("ADPTBUSCA", "meuUsuario.getAmigos().contains != null IF  | Nick usuario " + usuario.getNick() + " E Nick meuUser: "+ meuUsuario.getNick());
+                        Log.d(TAG, "meuUsuario.getAmigos().contains != null IF  | Nick usuario " + usuario.getNick() + " E Nick meuUser: "+ meuUsuario.getNick());
                         viewHolder.btnSeguir.setCompoundDrawablesWithIntrinsicBounds(null,null,null,imgClicked);
                         viewHolder.btnSeguir.setText("Seguindo");
                     }

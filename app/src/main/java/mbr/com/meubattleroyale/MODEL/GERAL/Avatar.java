@@ -90,7 +90,7 @@ public class Avatar
     {
         adicionarDrawables();
         int drawable = 0;
-        for (int i = 1; i <= 32; i++)
+        for (int i = 0; i <= 32; i++)
         {
             if (i == name)
             {
