@@ -55,7 +55,7 @@ public class Settings extends Fragment implements RewardedVideoAdListener
     private ArrayList<Avatar> avatars = new ArrayList<>();
     private ArrayList<Usuario> usuarios = new ArrayList<>();
     private DatabaseReference ref = ConfiguracaoFirebase.getFirebase();
-    private TextView txtNick,txtTermos,txtEmail,txtAmigos,txtVersao,txtSaldo;
+    private TextView txtNick,txtSobre,txtEmail,txtAmigos,txtVersao,txtSaldo;
     private AdView mAdView;
     private FirebaseAuth mAuth = ConfiguracaoFirebase.getFirebaseAutenticacao();
     private ArrayList<Amigo> amigos = new ArrayList<>();
@@ -175,17 +175,8 @@ public class Settings extends Fragment implements RewardedVideoAdListener
         btnLogout = view.findViewById(R.id.btnLogout);
         imgTrocarImg = view.findViewById(R.id.imgAvatar_setting);
         txtNick = view.findViewById(R.id.txtNick);
-        txtTermos = view.findViewById(R.id.txtTermos);
+        txtSobre = view.findViewById(R.id.txtSobre);
         frml = view.findViewById(R.id.frml);
-
-        txtTermos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                Snackbar.make(v,"Clicou em termos", BaseTransientBottomBar.LENGTH_LONG).show();
-            }
-        });
-
 
         btnPro.setOnClickListener(new View.OnClickListener()
         {
@@ -282,12 +273,7 @@ public class Settings extends Fragment implements RewardedVideoAdListener
                 }
             }
         });
-        txtTermos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         txtPolitica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,6 +281,15 @@ public class Settings extends Fragment implements RewardedVideoAdListener
                 startActivity(browser);
             }
         });
+        txtSobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/silveiradevs"));
+                startActivity(browser);
+            }
+        });
+
 
     }
 
