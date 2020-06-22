@@ -29,6 +29,7 @@ import mbr.com.meubattleroyale.MODEL.INTERFACE.CustomConversa;
 import mbr.com.meubattleroyale.R;
 import mbr.com.meubattleroyale.VIEW.ACTIVITY.Chat;
 import mbr.com.meubattleroyale.VIEW.ADAPTER.AdaptadorConversa;
+import mbr.com.meubattleroyale.VIEW.DIALOG.DeletarConversa;
 import mbr.com.meubattleroyale.VIEW.DIALOG.NovaMensagem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -261,25 +262,40 @@ public class Conversas extends Fragment
                 String[] icone_tipo = conversa.getRecebido().split(":");
                 Intent intent = new Intent(getContext(), Chat.class);
                 Bundle bundle = new Bundle();
-                Log.d("NM_","IDUSER: "+conversa.getId());
-                Log.d("NM_","MEUID: "+meuUsuario.get(0).getId());
+                Log.d("CONVERSAS_","IDUSER: "+conversa.getId());
+                Log.d("CONVERSAS_","MEUID: "+meuUsuario.get(0).getId());
                 bundle.putString("id_user",conversa.getId());
                 bundle.putString("meu_id",meuUsuario.get(0).getId());
                 bundle.putString("meu_nick",meuUsuario.get(0).getNickname());
                 bundle.putString("nick_amigo",conversa.getUsername());
                 bundle.putString("mIcone",meuAvatar.get(0).getAvatar());
                 bundle.putString("iconeA",icone_tipo[0]);
+                intent.setAction("conversas");
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
 
             @Override
-            public void onLongItemClick(View itemView, int position, Mensagem conversa) {
-
+            public void onLongItemClick(View itemView, int position, Mensagem conversa)
+            {
+                //IMPLEMENTAR CLIQUE LONGO COM OPÇÃO DE EXCLUSÃO DE CONVERSA
+                deletarMensagem(conversa);
             }
         });
         recChat.setAdapter(adapter);
 
+    }
+    // CRIAR CHAMADA DE NOVA MENSAGEM VINDA DA LISTA AMIGOS
+    private void deletarMensagem(Mensagem mensagem)
+    {
+        FragmentManager fm = getChildFragmentManager();
+        DeletarConversa deletarConversa = DeletarConversa.deletar(mensagem.getId(),
+                mensagem.getData(),
+                mensagem.getRecebido(),
+                mensagem.getUsername(),
+                mensagem.getMessagem(),
+                meuUser.get(0).getId());
+        deletarConversa.show(fm,"fragment_alert");
     }
 
     private void fazerCast(View view) {

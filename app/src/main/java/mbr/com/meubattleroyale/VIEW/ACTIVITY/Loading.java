@@ -75,7 +75,6 @@ public class Loading extends AppCompatActivity
     {
         super.onStart();
         dbLocal = new DatabaseHelper(getApplicationContext());
-
     }
 //recupera banco e verifica login
     private void consultarDados()
@@ -119,7 +118,9 @@ public class Loading extends AppCompatActivity
                             Avatar avatar = new Avatar(1,String.valueOf(meuUser.getIcone()),DatabaseHelper.getDateTime());
                             dbLocal.inserirAvatar(avatar);
                             //iniciando service
-                            getApplicationContext().startService(new Intent(getApplicationContext(), NotificacaoService.class));
+                            Intent startIntent = new Intent(getApplicationContext(),NotificacaoService.class);
+                            startIntent.setAction("NS");
+                            startService(startIntent);
                         }
                         else
                         {
@@ -128,7 +129,10 @@ public class Loading extends AppCompatActivity
                             dbLocal.atualizarAmigo(meuUser);
                             dbLocal.atualizarUsuario(new Usuario(meuUser.getId(),DatabaseHelper.getDateTime(),meuUser.getNick()));
                             //iniciando service
-                            getApplicationContext().startService(new Intent(getApplicationContext(), NotificacaoService.class));
+                            //iniciando service
+                            Intent startIntent = new Intent(getApplicationContext(),NotificacaoService.class);
+                            startIntent.setAction("NS");
+                            startService(startIntent);
                         }
                         startActivity(new Intent(getApplicationContext(), PainelPrincipal.class));
                     }

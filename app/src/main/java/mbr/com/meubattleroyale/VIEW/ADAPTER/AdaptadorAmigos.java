@@ -151,12 +151,8 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 meuUsuario = dataSnapshot.getValue(Amigo.class);
-
-                if (usuario.getIcone() != 0)
-                {
-                    viewHolder.imageView.setImageResource(Avatar.identificarAvatar(usuario.getIcone()));
-                }
-                else viewHolder.imageView.setImageResource(R.drawable.ic_add_avatar);
+                viewHolder.imageView.setImageResource(Avatar.identificarAvatar(usuario.getIcone()));
+                //viewHolder.imageView.setImageResource(R.drawable.ic_add_avatar);
                 viewHolder.imageView.setVisibility(View.VISIBLE);
                 if (meuUsuario.getAmigos() != null)
                 {

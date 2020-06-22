@@ -238,7 +238,7 @@
                     android:drawableRight="@drawable/ic_premium"
                     android:fontFamily="@font/font_family_robotto"
                     android:padding="5dp"
-                    android:text="Assine o pró por apenas 2500 pontos/mês e obtenha acesso ilimitado no aplicativo!"
+                    android:text="Assine o pró por apenas 2000 pontos/mês e obtenha acesso ilimitado no aplicativo!"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/branco"
@@ -323,7 +323,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         ads:adSize="BANNER"
-                        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+                        ads:adUnitId="ca-app-pub-3914061267069780/4390232304"></com.google.android.gms.ads.AdView>
+                    <!--  teste banner a-app-pub-3940256099942544/6300978111 -->
                 </FrameLayout>
 
             </LinearLayout>

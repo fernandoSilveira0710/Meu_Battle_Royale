@@ -44,7 +44,6 @@ public class NotificacaoService extends Service
     private DatabaseHelper db;
     private ArrayList<Usuario> meuUsuario = new ArrayList<>();
     private ArrayList<Avatar> meuAvatar = new ArrayList<>();
-    private int NOTIFICATION_ID;
     private String CHANEL_NOTICIAS = "1",CHANEL_CHAT = "2",CHANEL_NOTIFICACAO = "3";
     private ArrayList<Notificacao> minhasNotificacoes = new ArrayList<>();
     private static boolean isServiceRunning = false;
@@ -55,7 +54,7 @@ public class NotificacaoService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         Log.d(TAG, "Iniciando Service");
-        if (intent != null)
+        if (intent != null && intent.getAction().equals("NS"))
         {
             escutarBancos();
         }
@@ -70,7 +69,6 @@ public class NotificacaoService extends Service
         ref.child("alerta").child(meuUsuario.get(0).getId()).removeEventListener(notificacaoListener);
         stopForeground(true);
         stopSelf();
-        isServiceRunning = false;
     }
 
     @Override
@@ -91,7 +89,8 @@ public class NotificacaoService extends Service
     public void onDestroy()
     {
         super.onDestroy();
-        stopMyService();
+        isServiceRunning = false;
+
         Log.d(TAG, "Destruindo service");
     }
     private void escutarBancos()
@@ -131,6 +130,7 @@ public class NotificacaoService extends Service
 
             }
         };
+        Log.d(TAG, "escutarNovosAlertas: ID: "+meuUsuario.get(0).getId());
         ref.child("alerta").child(meuUsuario.get(0).getId()).addValueEventListener(notificacaoListener);
     }
 
@@ -142,7 +142,7 @@ public class NotificacaoService extends Service
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
             {
                 Noticia noticia = dataSnapshot.getValue(Noticia.class);
-                Log.d("service_","nova noticia : "+ noticia.getTitulo());
+                Log.d("SERVICO_","nova noticia : "+ noticia.getTitulo());
                 verificarNotificacao(noticia.getId(),noticia.getData(),noticia.getTitulo(),2,noticia);
             }
 
@@ -178,7 +178,7 @@ public class NotificacaoService extends Service
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
             {
                 Mensagem new_mensagem = dataSnapshot.getValue(Mensagem.class);
-                Log.d("service_","nova mensagem endAt : "+ new_mensagem.getMessagem());
+                Log.d("SERVICO_","nova mensagem endAt : "+ new_mensagem.getMessagem());
                 String[] icone_tipo = new_mensagem.getRecebido().split(":");
                 if (icone_tipo[1].equals("0"))
                 {
@@ -190,7 +190,7 @@ public class NotificacaoService extends Service
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
             {
                 Mensagem new_mensagem = dataSnapshot.getValue(Mensagem.class);
-                Log.d("service_","nova mensagem alterada endAt : "+ new_mensagem.getMessagem());
+                Log.d("SERVICO_","nova mensagem alterada endAt : "+ new_mensagem.getMessagem());
                 String[] icone_tipo = new_mensagem.getRecebido().split(":");
                 if (icone_tipo[1].equals("0"))
                 {
@@ -277,7 +277,7 @@ public class NotificacaoService extends Service
     {
         try
         {
-            int NOTIFICACAO_ID = cont +1;
+            int NOTIFICACAO_ID = cont ++;
             Log.i(TAG, "enviarNotificação Mensagem: " + mensagem.getId());
 // Intenção de iniciar a atividade principal
             Intent chat = new Intent(getApplicationContext(), Chat.class);
@@ -288,10 +288,11 @@ public class NotificacaoService extends Service
             dados.putString("nick_amigo", mensagem.getUsername());
             dados.putString("iconeA",icone);
             dados.putString("mIcone", meuAvatar.get(0).getAvatar());
+            chat.setAction(mensagem.getId());
             chat.putExtras(dados);
             //chat.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //CRIANDO INTENÇÃO
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,chat,0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),0,chat,PendingIntent.FLAG_UPDATE_CURRENT);
 // CRIANDO NOTIFICAÇÃO
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANEL_CHAT)
                     .setSmallIcon(R.mipmap.ic_logo)
@@ -391,6 +392,7 @@ public class NotificacaoService extends Service
                     //tipo 1 é o usuario respondendo a alerta
                     if (textos[0].equals("0"))
                     {
+                        Log.d(TAG, "enviarNotificacao enviando alerta "+NOTIFICACAO_ID);
                         //criando intencao do botão Não
                         Intent brodcastN = new Intent(getApplicationContext(),NotificacaoReceiver.class);
                         Bundle bundleN = new Bundle();
@@ -435,7 +437,8 @@ public class NotificacaoService extends Service
                             canalNotificacao.setDescription("Receba notificações dos alertas dos amigos");
                             canalNotificacao.setLightColor(R.color.logo2);
                             manager.createNotificationChannel(canalNotificacao);
-                            compat.setChannelId(CHANEL_NOTICIAS);
+                            compat.setChannelId(CHANEL_NOTIFICACAO);
+                            Log.d(TAG, "Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ");
                         }
                         manager.notify(Integer.parseInt(NOTIFICACAO_ID), compat.build());
                         //startForeground(NOTIFICATION_ID,compat.build());
@@ -460,7 +463,7 @@ public class NotificacaoService extends Service
                             canalNotificacao.setDescription("Receba notificações dos alertas dos amigos");
                             canalNotificacao.setLightColor(R.color.logo2);
                             manager.createNotificationChannel(canalNotificacao);
-                            compat.setChannelId(CHANEL_NOTICIAS);
+                            compat.setChannelId(CHANEL_NOTIFICACAO);
                         }
                         manager.notify(Integer.parseInt(NOTIFICACAO_ID), compat.build());
                         ref.child("alerta").child(textos[2]).removeValue();

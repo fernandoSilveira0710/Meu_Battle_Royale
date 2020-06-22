@@ -94,7 +94,8 @@ public class Settings extends Fragment implements RewardedVideoAdListener
         });
         mAd = MobileAds.getRewardedVideoAdInstance(getContext());
         mAd.setRewardedVideoAdListener(this);
-        mAd.loadAd("ca-app-pub-3940256099942544/5224354917",new AdRequest.Builder().build());
+        // teste ca-app-pub-3940256099942544/5224354917
+        mAd.loadAd("ca-app-pub-3914061267069780/5633680148",new AdRequest.Builder().build());
 
         fazerCast(view);
         db = new DatabaseHelper(getContext());
@@ -195,21 +196,21 @@ public class Settings extends Fragment implements RewardedVideoAdListener
                 new SweetAlertDialog(getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                         .setTitleText("Pagamento")
                         .setCustomImage(R.drawable.ic_pig)
-                        .setContentText("Saldo: "+pontos+" pontos disponiveis\n Valor do pacote: ("+2500+" pontos)")
+                        .setContentText("Saldo: "+pontos+" pontos disponiveis\n Valor do pacote: ("+2000+" pontos)")
                         .setConfirmText("Saldo")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
                         {
                             @Override
                             public void onClick(final SweetAlertDialog sDialog)
                             {
-                                if (pontos < 2500)
+                                if (pontos < 2000)
                                 {
                                     Snackbar.make(getView(),"Seu saldo é inferior ao valor do pacote", Snackbar.LENGTH_LONG).show();
                                 }
                                 else
                                 {
                                     String  versao = "Pro";
-                                    final int pontosFinais = pontos - 2500;
+                                    final int pontosFinais = pontos - 2000;
                                     Log.d(TAG, "SALDO FINAL: "+pontosFinais);
                                     String[] pacotes = tipo[3].split("&");
                                     String pcte =  pacotes[0]+"&"+pacotes[1]+"&"+pacotes[2];

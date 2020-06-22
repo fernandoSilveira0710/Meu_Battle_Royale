@@ -354,24 +354,24 @@ public class SelecionarAvatar extends AppCompatActivity
         {
             case 0:
                 pcte = pacotes[0]+"&"+pacotes[1]+"&"+"1";
-                custoPontos = 4000;
+                custoPontos = 1500;
                 button = btnMitico;
                 enviarNotificacao(pcte,button,custoPontos,1);
                 break;
             case 1:
-                custoPontos = 2000;
+                custoPontos = 500;
                 pcte = "1"+"&"+pacotes[1]+"&"+pacotes[2];
                 button = btnEpico;
                 enviarNotificacao(pcte,button,custoPontos,1);
                 break;
             case 2:
-                custoPontos = 3000;
+                custoPontos = 1000;
                 pcte = pacotes[0]+"&"+"1"+"&"+pacotes[2];
                 button = btnLendario;
                 enviarNotificacao(pcte,button,custoPontos,1);
                 break;
             case 3:
-                custoPontos = 2500;
+                custoPontos = 2000;
                 pcte = pacotes[0]+"&"+pacotes[1]+"&"+pacotes[2];
                 button = btnPro;
                 enviarNotificacao(pcte,button,custoPontos,0);

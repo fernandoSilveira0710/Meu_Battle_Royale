@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import mbr.com.meubattleroyale.SERVICE.NotificacaoService;
 
 
 public class Login extends AppCompatActivity
@@ -271,6 +272,10 @@ public class Login extends AppCompatActivity
                                         public void onClick(SweetAlertDialog sweetAlertDialog)
                                         {
                                             startActivity(new Intent(getApplicationContext(), PainelPrincipal.class));
+                                            //iniciando service
+                                            Intent startIntent = new Intent(getApplicationContext(),NotificacaoService.class);
+                                            startIntent.setAction("NS");
+                                            startService(startIntent);
                                         }
                                     })
                                     .show();
@@ -421,6 +426,10 @@ public class Login extends AppCompatActivity
                             public void onClick(SweetAlertDialog sweetAlertDialog)
                             {
                                 startActivity(new Intent(getApplicationContext(), PainelPrincipal.class));
+                                //iniciando service
+                                Intent startIntent = new Intent(getApplicationContext(),NotificacaoService.class);
+                                startIntent.setAction("NS");
+                                startService(startIntent);
                             }
                         })
                         .show();

@@ -46,6 +46,7 @@ public class Avatar
 
     private static int[] adicionarDrawables()
     {
+        icons[0] = R.drawable.ic_add_avatar;
         icons[1] = R.drawable.ic_img01avt;
         icons[2] = R.drawable.ic_img02avt;
         icons[3] = R.drawable.ic_img03avt;

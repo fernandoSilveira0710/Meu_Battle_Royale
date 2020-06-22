@@ -321,6 +321,8 @@ public class Chat extends AppCompatActivity
         super.onStop();
        // ref.removeEventListener(msgmListener);
         //iniciando service
-        getApplicationContext().startService(new Intent(getApplicationContext(), NotificacaoService.class));
+        Intent startIntent = new Intent(getApplicationContext(),NotificacaoService.class);
+        startIntent.setAction("NS");
+        startService(startIntent);
     }
 }

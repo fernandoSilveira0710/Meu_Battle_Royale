@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "467985425969-rtfh62ij11tdss3s0mqvdndokurbjn84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mbr.com.meubattleroyale",
+            "certificate_hash": "015ca72d22d2e59e87c8da255aca0c03fd2d9579"
+          }
+        },
+        {
           "client_id": "467985425969-5rvrejd48abocnl7qea234etgbie6rhv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
